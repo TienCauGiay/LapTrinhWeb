@@ -23,10 +23,10 @@ namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
         // GET: Admin/Customer
         public async Task<IActionResult> Index(int? page)
         {
-            int pageSize = 4;
+            int pageSize = 5;
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
-            var customer = _context.KhachHangs.ToList();
-            PagedList<KhachHang> res = new PagedList<KhachHang>(customer, pageNumber, pageSize);
+            var customers = _context.KhachHangs.ToList();
+            PagedList<KhachHang> res = new PagedList<KhachHang>(customers, pageNumber, pageSize);
             return View(res);
         }
 
