@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BanDoDienTu_Nhom06_N03.Models.KhachHang>
+﻿@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<KhachHang>
 
 @{
     ViewData["Title"] = "Index";
@@ -36,16 +37,16 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.MaKh)
+                            @item.MaKh
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.TenKh)
+                            @item.TenKh
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Sdtkh)
+                            @item.Sdtkh
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DiaChiKh)
+                            @item.DiaChiKh
                         </td>
                         <td>
                             <a class="btn btn-inverse-info btn-tone m-r-5" asp-area="Admin" asp-controller="Customer" asp-action="Details" asp-route-id="@item.MaKh">Chi tiết</a>
@@ -58,3 +59,9 @@
         </tbody>
     </table>
 </div>
+
+<br />
+@Html.PagedListPager(Model,page => Url.Action("Index", new {page=page}),new X.PagedList.Web.Common.PagedListRenderOptions(){
+	LiElementClasses = new List<String> {"page-item"},
+	PageClasses = new List<String> {"page-link"}
+})

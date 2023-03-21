@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BanDoDienTu_Nhom06_N03.Models;
+using X.PagedList;
 
 namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
 {
@@ -20,9 +21,13 @@ namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
         }
 
         // GET: Admin/Customer
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
-            return View(await _context.KhachHangs.ToListAsync());
+            int pageSize = 5;
+            int pageNumber = page == null || page < 0 ? 1 : page.Value;
+            var customers = _context.KhachHangs.ToList();
+            PagedList<KhachHang> res = new PagedList<KhachHang>(customers, pageNumber, pageSize);
+            return View(res);
         }
 
         // GET: Admin/Customer/Details/5
