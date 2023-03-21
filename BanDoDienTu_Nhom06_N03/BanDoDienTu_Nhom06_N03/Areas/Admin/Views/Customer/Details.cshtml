@@ -5,33 +5,35 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>KhachHang</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenKh)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenKh)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sdtkh)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Sdtkh)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DiaChiKh)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DiaChiKh)
-        </dd>
-    </dl>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin khách hàng</h4>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td>ID</td>
+                        <td class="text-dark font-weight-bold">@Model.MaKh</td>
+                    </tr>
+                    <tr>
+                        <td>Tên khách hàng</td>
+                        <td>@Model.TenKh</td>
+                    </tr>
+                    <tr>
+                        <td>Số điện thoại</td>
+                        <td>@Model.Sdtkh</td>
+                    </tr>
+                    <tr>
+                        <td>Địa chỉ</td>
+                        <td>@Model.DiaChiKh</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+<br />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.MaKh">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.MaKh">Sửa</a> |
     <a asp-action="Index">Back to List</a>
 </div>

@@ -22,9 +22,7 @@ namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
         // GET: Admin/Customer
         public async Task<IActionResult> Index()
         {
-            return _context.KhachHangs != null ?
-                        View(await _context.KhachHangs.ToListAsync()) :
-                        Problem("Entity set 'BanDoDienTuContext.KhachHangs'  is null.");
+            return View(await _context.KhachHangs.ToListAsync());
         }
 
         // GET: Admin/Customer/Details/5
@@ -148,6 +146,13 @@ namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
             var khachHang = await _context.KhachHangs.FindAsync(id);
             if (khachHang != null)
             {
+                var hdb = await _context.HoaDonBans.FirstOrDefaultAsync(x => x.MaKh == khachHang.MaKh);
+                if (hdb != null)
+                {
+                    var cthdb = await _context.ChiTietHdbs.FirstOrDefaultAsync(x => x.MaHdb == hdb.MaHdb);
+                    if(cthdb != null) _context.ChiTietHdbs.Remove(cthdb);
+                    _context.HoaDonBans.Remove(hdb);
+                }
                 _context.KhachHangs.Remove(khachHang);
             }
 

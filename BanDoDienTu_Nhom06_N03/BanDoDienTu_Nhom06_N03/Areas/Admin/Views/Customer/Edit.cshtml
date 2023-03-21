@@ -4,33 +4,28 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Edit</h1>
-
-<h4>KhachHang</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaKh" />
             <div class="form-group">
-                <label asp-for="TenKh" class="control-label"></label>
+                <label asp-for="TenKh" class="control-label">Họ tên </label>
                 <input asp-for="TenKh" class="form-control" />
                 <span asp-validation-for="TenKh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Sdtkh" class="control-label"></label>
+                <label asp-for="Sdtkh" class="control-label">Số điện thoại</label>
                 <input asp-for="Sdtkh" class="form-control" />
                 <span asp-validation-for="Sdtkh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DiaChiKh" class="control-label"></label>
+                <label asp-for="DiaChiKh" class="control-label">Địa chỉ</label>
                 <input asp-for="DiaChiKh" class="form-control" />
                 <span asp-validation-for="DiaChiKh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Lưu thay đổi" class="btn btn-primary" />
             </div>
         </form>
     </div>

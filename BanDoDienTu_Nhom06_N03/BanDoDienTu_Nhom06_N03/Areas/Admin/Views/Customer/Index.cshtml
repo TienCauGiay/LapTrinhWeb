@@ -5,44 +5,56 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
+<h2>Danh sách khách hàng</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Thêm khách hàng mới</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TenKh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sdtkh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiaChiKh)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenKh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sdtkh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChiKh)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaKh">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaKh">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaKh">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-bordered" style="border:5px solid white;">
+        <thead style="border:5px solid white;">
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Tên khách hàng
+                </th>
+                <th>
+                    Số điện thoại
+                </th>
+                <th>
+                    Địa chỉ
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody style="border:5px solid white;">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaKh)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenKh)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sdtkh)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiaChiKh)
+                        </td>
+                        <td>
+                            <a class="btn btn-inverse-info btn-tone m-r-5" asp-area="Admin" asp-controller="Customer" asp-action="Details" asp-route-id="@item.MaKh">Chi tiết</a>
+                            <a class="btn btn-inverse-success btn-tone m-r-5" asp-area="Admin" asp-controller="Customer" asp-action="Edit" asp-route-id="@item.MaKh">Sửa</a>
+                            <a class="btn btn-inverse-dark btn-tone m-r-5" asp-area="Admin" asp-controller="Customer" asp-action="Delete" asp-route-id="@item.MaKh">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
