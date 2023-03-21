@@ -19,7 +19,7 @@ public partial class SanPham
 
     public virtual ICollection<ChiTietHdn> ChiTietHdns { get; } = new List<ChiTietHdn>();
 
-    public virtual DanhMuc MaDmNavigation { get; set; } = null!;
+    public virtual DanhMuc? MaDmNavigation { get; set; } = null!;
 
-    public virtual ChiTietSp MaSpNavigation { get; set; } = null!;
+    public virtual ChiTietSp? MaSpNavigation { get; set; } = null!;
 }

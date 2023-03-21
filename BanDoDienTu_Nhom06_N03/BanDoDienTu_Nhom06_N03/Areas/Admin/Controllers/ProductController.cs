@@ -57,6 +57,7 @@ namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
         // GET: Admin/Product/Create
         public IActionResult Create()
         {
+            ViewBag.MaSp = new SelectList(_context.ChiTietSps.ToList(), "MaSp", "MaSp");
             ViewBag.MaDm = new SelectList(_context.DanhMucs.ToList(), "MaDm", "MaDm");
             return View();
         }
@@ -70,18 +71,12 @@ namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(_context.SanPhams.FirstOrDefault(x=>x.MaSp.Trim() == sanPham.MaSp.Trim()) != null)
-                {
-                    ModelState.AddModelError("MaSp", "Mã sản phẩm đã tồn tại");
-                    _notyfService.Success("Mã sản phẩm đã tồn tại");
-                }else
-                {
-                    _context.SanPhams.Add(sanPham);
-                    await _context.SaveChangesAsync();
-                    _notyfService.Success("Thêm sản phẩm thành công");
-                    return RedirectToAction(nameof(Index));
-                }
+                _context.SanPhams.Add(sanPham);
+                await _context.SaveChangesAsync();
+                _notyfService.Success("Thêm sản phẩm thành công");
+                return RedirectToAction(nameof(Index));
             }
+            ViewBag.MaSp = new SelectList(_context.ChiTietSps.ToList(), "MaSp", "MaSp");
             ViewBag.MaDm = new SelectList(_context.DanhMucs.ToList(), "MaDm", "MaDm");
             return View(sanPham);
         }
