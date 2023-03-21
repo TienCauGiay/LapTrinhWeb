@@ -1,0 +1,53 @@
+﻿@model BanDoDienTu_Nhom06_N03.Models.DangNhap
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.TaiKhoan)</td>
+                <td>@Html.DisplayFor(model => model.TaiKhoan)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.MatKhau)</td>
+                <td>@Html.DisplayFor(model => model.MatKhau)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Status)</td>
+                <td>
+                    @{var status = Model.Status.HasValue ? Model.Status.Value : false;}
+                        @if (status)
+                        {
+                            <span>Hoạt động</span>
+                        }
+                        else
+                        {
+                            <span>Không hoạt động</span>
+                        }
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.RoleId)</td>
+                <td>
+                    @if (Model.RoleId == "1")
+                    {
+                        <span>Admin</span>
+                    }
+                    else
+                    {
+                        <span>Nhân viên</span>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.TaiKhoan">Sửa</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

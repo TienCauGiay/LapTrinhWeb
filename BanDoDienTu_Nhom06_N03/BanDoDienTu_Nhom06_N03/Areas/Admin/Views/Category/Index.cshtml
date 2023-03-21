@@ -1,0 +1,49 @@
+﻿@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<DanhMuc>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Danh sách danh mục</h2>
+
+<p>
+    <a asp-action="Create">Thêm mới danh mục</a>
+</p>
+<table class="table table-bordered" style="border:5px solid white;">
+    <thead style="border:5px solid white;">
+        <tr>
+            <th>
+                Mã danh mục
+            </th>
+            <th>
+                Tên danh mục
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody style="border:5px solid white;">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.MaDm
+                </td>
+                <td>
+                    @item.TenDm
+                </td>
+                <td>
+                    <a class="btn btn-inverse-info btn-tone m-r-5" asp-area="Admin" asp-controller="Category" asp-action="Details" asp-route-id="@item.MaDm">Chi tiết</a>
+                    <a class="btn btn-inverse-success btn-tone m-r-5" asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-id="@item.MaDm">Sửa</a>
+                    <a class="btn btn-inverse-dark btn-tone m-r-5" asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@item.MaDm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+@Html.PagedListPager(Model,page => Url.Action("Index", new {page=page}),new X.PagedList.Web.Common.PagedListRenderOptions(){
+	LiElementClasses = new List<String> {"page-item"},
+	PageClasses = new List<String> {"page-link"}
+})

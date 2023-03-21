@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\BanDoDienTu_Nhom06_N03.props" />
+</Project>

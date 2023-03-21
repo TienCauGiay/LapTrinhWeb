@@ -1,0 +1,33 @@
+﻿@model BanDoDienTu_Nhom06_N03.Models.Role
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>Bạn có chắc muốn xóa role này không?</h3>
+<div>
+    <hr />
+    <div class="table-responsive col-md-6">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.RoleName)</td>
+                    <td class="text-dark font-weight-bold">@Html.DisplayFor(model => model.RoleName)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.Description)</td>
+                    <td>@Html.DisplayFor(model => model.Description)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="RoleId" />
+        <input type="submit" value="Xác nhận xóa" class="btn btn-inverse-dark" /> 
+        <br />
+        <br />
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

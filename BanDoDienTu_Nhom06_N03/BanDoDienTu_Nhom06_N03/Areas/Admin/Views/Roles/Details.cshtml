@@ -1,0 +1,30 @@
+﻿@model BanDoDienTu_Nhom06_N03.Models.Role
+
+@{
+    ViewData["Title"] = "Quản lí quyền truy cập";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin quyền truy cập</h4>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td>ID</td>
+                        <td class="text-dark font-weight-bold">@Model.RoleId</td>
+                    </tr>
+                    <tr>
+                        <td>Tên quyền truy cập</td>
+                        <td>@Model.RoleName</td>
+                    </tr>
+                    <tr>
+                        <td>Mô tả</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

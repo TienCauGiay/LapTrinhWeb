@@ -1,0 +1,73 @@
+﻿@model IEnumerable<BanDoDienTu_Nhom06_N03.Models.DangNhap>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Danh sách tài khoản</h1>
+
+<p>
+    <a asp-action="Create">Tạo tài khoản mới</a>
+</p>
+<table class="table table-bordered" style="border:5px solid white;">
+    <thead style="border:5px solid white;">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TaiKhoan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MatKhau)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleId)
+            </th>
+            <th></th>
+        </tr>
+    </thead >
+    <tbody style="border:5px solid white;">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaiKhoan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MatKhau)
+                    </td>
+                    <td>
+                        @{var status = @item.Status.HasValue ? @item.Status.Value : false;}
+                        @if (status)
+                        {
+                            <span>Hoạt động</span>
+                        }
+                        else
+                        {
+                            <span>Không hoạt động</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RoleId == "1")
+                        {
+                            <span>Admin</span>
+                        }
+                        else
+                        {
+                            <span>Nhân viên</span>
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-inverse-info btn-tone m-r-5" asp-area="Admin" asp-controller="Account" asp-action="Details" asp-route-id="@item.TaiKhoan">Chi tiết</a>
+                        <a class="btn btn-inverse-success btn-tone m-r-5" asp-area="Admin" asp-controller="Account" asp-action="Edit" asp-route-id="@item.TaiKhoan">Sửa</a>
+                        <a class="btn btn-inverse-dark btn-tone m-r-5" asp-area="Admin" asp-controller="Account" asp-action="Delete" asp-route-id="@item.TaiKhoan">Xóa</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

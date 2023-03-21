@@ -1,0 +1,25 @@
+﻿@model BanDoDienTu_Nhom06_N03.Models.DanhMuc
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-md-6">
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td>Mã danh mục</td>
+                <td>@Html.DisplayFor(model => model.MaDm)</td>
+            </tr>
+            <tr>
+                <td>Tên danh mục</td>
+                <td>@Html.DisplayFor(model => model.TenDm)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.MaDm">Sửa</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

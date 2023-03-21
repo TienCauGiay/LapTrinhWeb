@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BanDoDienTu_Nhom06_N03.Models.Role>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Danh sách quyền truy cập</h1>
+
+<p>
+    <a asp-action="Create">Thêm quyền mới</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-bordered" style="border:5px solid white;">
+        <thead style="border:5px solid white;">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Descriptions</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody style="border:5px solid white;">
+            @if(Model != null)
+            {
+                foreach(var item in Model)
+                {
+                    <tr>
+                        <th scope="col">@item.RoleId</th>
+                        <td>@item.RoleName</td>
+                        <td>@item.Description</td>
+                        <td>
+                            <a class="btn btn-inverse-info btn-tone m-r-5" asp-area="Admin" asp-controller="Roles" asp-action="Details" asp-route-id="@item.RoleId">Chi tiết</a>
+                            <a class="btn btn-inverse-success btn-tone m-r-5" asp-area="Admin" asp-controller="Roles" asp-action="Edit" asp-route-id="@item.RoleId">Sửa</a>
+                            <a class="btn btn-inverse-dark btn-tone m-r-5" asp-area="Admin" asp-controller="Roles" asp-action="Delete" asp-route-id="@item.RoleId">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="alert-danger">Chưa có quyền truy cập nào</tr>
+            }
+        </tbody>
+    </table>
+</div>
+
