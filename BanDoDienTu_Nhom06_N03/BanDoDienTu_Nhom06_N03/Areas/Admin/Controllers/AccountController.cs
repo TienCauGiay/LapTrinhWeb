@@ -68,6 +68,7 @@ namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
                 if (_context.DangNhaps.FirstOrDefault(x => x.TaiKhoan == dangNhap.TaiKhoan) != null)
                 {
                     ModelState.AddModelError("TaiKhoan", "Tài khoản đã tồn tại");
+                    _notyfService.Success("Tài khoản đã tồn tại");
                 }
                 else if (_context.Roles.FirstOrDefault(x => x.RoleId == dangNhap.RoleId) == null)
                 {

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BanDoDienTu_Nhom06_N03.Models;
+using X.PagedList;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
 {
@@ -14,16 +16,22 @@ namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
     {
         private readonly BanDoDienTuContext _context;
 
-        public ProductController(BanDoDienTuContext context)
+        public INotyfService _notyfService { get; }
+
+        public ProductController(BanDoDienTuContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService= notyfService;
         }
 
         // GET: Admin/Product
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
-            var banDoDienTuContext = _context.SanPhams.Include(s => s.MaDmNavigation).Include(s => s.MaSpNavigation);
-            return View(await banDoDienTuContext.ToListAsync());
+            int pageSize = 10;
+            int pageNumber = page == null || page < 0 ? 1 : page.Value;
+            var products = _context.SanPhams.ToList();
+            PagedList<SanPham> res = new PagedList<SanPham>(products, pageNumber, pageSize);
+            return View(res);
         }
 
         // GET: Admin/Product/Details/5
@@ -49,8 +57,7 @@ namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
         // GET: Admin/Product/Create
         public IActionResult Create()
         {
-            ViewData["MaDm"] = new SelectList(_context.DanhMucs, "MaDm", "MaDm");
-            ViewData["MaSp"] = new SelectList(_context.ChiTietSps, "MaSp", "MaSp");
+            ViewBag.MaDm = new SelectList(_context.DanhMucs.ToList(), "MaDm", "MaDm");
             return View();
         }
 
@@ -63,12 +70,19 @@ namespace BanDoDienTu_Nhom06_N03.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(sanPham);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if(_context.SanPhams.FirstOrDefault(x=>x.MaSp.Trim() == sanPham.MaSp.Trim()) != null)
+                {
+                    ModelState.AddModelError("MaSp", "Mã sản phẩm đã tồn tại");
+                    _notyfService.Success("Mã sản phẩm đã tồn tại");
+                }else
+                {
+                    _context.SanPhams.Add(sanPham);
+                    await _context.SaveChangesAsync();
+                    _notyfService.Success("Thêm sản phẩm thành công");
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            ViewData["MaDm"] = new SelectList(_context.DanhMucs, "MaDm", "MaDm", sanPham.MaDm);
-            ViewData["MaSp"] = new SelectList(_context.ChiTietSps, "MaSp", "MaSp", sanPham.MaSp);
+            ViewBag.MaDm = new SelectList(_context.DanhMucs.ToList(), "MaDm", "MaDm");
             return View(sanPham);
         }
 
